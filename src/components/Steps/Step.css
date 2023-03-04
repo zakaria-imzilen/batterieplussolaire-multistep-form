@@ -1,0 +1,13 @@
+#steps-show {
+	cursor: pointer;
+}
+
+.selectOption {
+	background-color: rgba(255, 255, 68, 0.507);
+	color: #000;
+	max-width: 18rem !important;
+}
+
+.selectOption.active {
+	background-color: var(--yellow);
+}

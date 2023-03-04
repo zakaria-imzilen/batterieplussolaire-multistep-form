@@ -7,3 +7,10 @@
 		rotate: 90deg;
 	}
 }
+
+#steps-show {
+	max-height: 25rem;
+	overflow-y: scroll;
+	scrollbar-color: var(--green) #5eff5e70;
+	scrollbar-width: thin;
+}
