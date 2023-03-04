@@ -19,3 +19,10 @@ html {
 .hovered {
 	cursor: pointer;
 }
+
+a,
+a:active,
+a:focus,
+a:hover {
+	color: initial !important;
+}

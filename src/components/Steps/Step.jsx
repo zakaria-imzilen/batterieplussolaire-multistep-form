@@ -1,12 +1,13 @@
-import { Button, Input } from "@mui/material";
+import { Alert, Button, Input } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { changeInput, nextInput, submitForm } from "../../features/StepsSlice";
 import "./Step.css";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import stepsData from "../../config/data";
 
-const Step = ({ inputName, index, question, inputType, selectValues }) => {
+const Step = ({}) => {
 	// Return letter instead of number
 	const returnLetter = (num) => {
 		switch (num) {
@@ -26,12 +27,22 @@ const Step = ({ inputName, index, question, inputType, selectValues }) => {
 		}
 	};
 
+	const activeStep = useSelector((state) => state.steps.activeInput);
+
+	// Actual INPUT Data
+	let question = stepsData[activeStep].question;
+	let selectValues = stepsData[activeStep].selectValues;
+	let inputType = stepsData[activeStep].inputType;
+	let inputName = stepsData[activeStep].inputName;
+
 	const dispatch = useDispatch();
 	const inputState = useSelector((state) => state.steps.formValues[inputName]);
+	const formData = useSelector((state) => state.steps.formValues);
 	const validForm = useSelector((state) => state.steps.formSubmitted.status);
 
 	const [inputVal, setInputVal] = useState("");
 
+	// Handle Ok button
 	const handleOk = () => {
 		if (inputType === "text") {
 			switch (inputName) {
@@ -113,33 +124,41 @@ const Step = ({ inputName, index, question, inputType, selectValues }) => {
 	}, [validForm]);
 
 	return (
-		<div
-			className="py-5 ps-md-5 position-relative"
-			id="steps-show"
-			data-aos="fade-right"
-		>
+		<div className="py-5 ps-md-5 position-relative" id="steps-show">
 			<h5 className="question mb-4">
-				<span className="fs-6">{index}-</span> {question}
+				<span className="fs-6">{activeStep + 1}-</span> {question}
 			</h5>
+
+			{inputName === "phone" || inputName === "email" ? (
+				<Alert severity="info" className="mb-3">
+					{formData.genre} {formData.name} d'après vos informations vous pouvez
+					réaliser minimum 50% d'économie sur votre facture d'électricité.
+				</Alert>
+			) : (
+				""
+			)}
 			{/* Select */}
 			{inputType === "select" ? (
 				<div className="ps-5 row row-cols-1 flex-wrap gap-1">
-					{selectValues.map((opt) => (
-						<motion.span
-							whileTap={{ scale: 0.9 }}
-							onClick={() => dispatch(changeInput({ inputName, value: opt }))}
-							key={selectValues.indexOf(opt)}
-							className={`selectOption py-2 px-4 d-block ${
-								inputState === opt && "active"
-							}`}
-							value={opt}
-						>
-							<span className="letter">
-								{returnLetter(selectValues.indexOf(opt))}-{" "}
-							</span>{" "}
-							{opt}
-						</motion.span>
-					))}
+					<AnimatePresence>
+						{selectValues.map((opt) => (
+							<motion.span
+								exit={{ opacity: 0 }}
+								// whileTap={{ scale: 0.9 }}
+								onClick={() => dispatch(changeInput({ inputName, value: opt }))}
+								key={selectValues.indexOf(opt)}
+								className={`selectOption py-2 px-4 d-block ${
+									inputState === opt && "active"
+								}`}
+								value={opt}
+							>
+								<span className="letter">
+									{returnLetter(selectValues.indexOf(opt))}-{" "}
+								</span>{" "}
+								{opt}
+							</motion.span>
+						))}
+					</AnimatePresence>
 				</div>
 			) : (
 				<Input
@@ -158,11 +177,17 @@ const Step = ({ inputName, index, question, inputType, selectValues }) => {
 				/>
 			)}
 
-			<motion.div whileTap={{ scale: 0.91 }} data-aos="fade-down">
+			<motion.div
+				className="ps-md-5"
+				style={{ width: "min-content" }}
+				whileTap={{ scale: 0.91 }}
+				data-aos="fade-down"
+			>
 				<Button
 					onClick={handleOk}
-					className={`ms-auto ms-md-5 my-5 d-block`}
+					className={`ms-auto my-5 d-block`}
 					variant="contained"
+					color={`${inputName !== "email" ? "warning" : "success"}`}
 					id="ok"
 				>
 					Ok!

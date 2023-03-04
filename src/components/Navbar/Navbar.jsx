@@ -23,6 +23,7 @@ const Navbar = () => {
 						startIcon={<CallIcon />}
 						variant="outlined"
 						color="warning"
+						href="tel:0490664112"
 					>
 						04 90 66 41 12
 					</Button>
