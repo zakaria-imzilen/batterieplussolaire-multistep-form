@@ -4,7 +4,7 @@ import CallIcon from "@mui/icons-material/Call";
 
 const Hero = () => {
 	return (
-		<header className="container-fluid py-4 m-0">
+		<header data-aos="fade-down-left" className="container-fluid py-4 m-0">
 			<div id="content" className="container-md mx-md-auto py-5">
 				<h1 className="mb-4 fw-bold mx-md-auto">
 					Domotique photovoltaïque: est-ce que ça vaut le coup ?

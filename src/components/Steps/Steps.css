@@ -4,13 +4,21 @@
 
 @media all and (max-width: 768px) {
 	.animatedArrow-wrapper > img {
-		rotate: 90deg;
+		transform: rotate(90deg);
 	}
 }
 
 #steps-show {
 	max-height: 25rem;
-	overflow-y: scroll;
+	/* overflow-y: scroll; */
 	scrollbar-color: var(--green) #5eff5e70;
 	scrollbar-width: thin;
+}
+
+.animatedArrow-wrapper img {
+	mix-blend-mode: multiply;
+}
+
+#steps .MuiInputBase-input {
+	width: 15rem;
 }

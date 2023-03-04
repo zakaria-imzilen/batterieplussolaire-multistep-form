@@ -15,3 +15,7 @@ html {
 	--green: #28984d;
 	--blue: #12327f;
 }
+
+.hovered {
+	cursor: pointer;
+}

@@ -11,3 +11,7 @@
 .selectOption.active {
 	background-color: var(--yellow);
 }
+
+#ok {
+	background-color: var(--yellow);
+}

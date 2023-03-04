@@ -1,4 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+export const submitForm = createAsyncThunk("submitForm", async () => {});
 
 const stepsSlice = createSlice({
 	name: "steps",
@@ -6,21 +8,26 @@ const stepsSlice = createSlice({
 		activeInput: 0,
 		formValues: {
 			address: "",
-			bill: "",
-			areYou: "",
-			type: "",
-			research: "",
-			goal: "",
-			chauffage: "",
-			production: "",
-			age: "",
-			people: 1,
+			bill: "500 à 1000 €",
+			areYou: "Propriétaire (Résidence principale)",
+			type: "Maison",
+			research: "Je commence mes recherches",
+			goal: "Réduire ma facture d'électricité de 50% à 70%",
+			chauffage:
+				"Pompe à chaleur Air/Eau (Chauffage au sol, radiateur haute et moyenne température)",
+			production: "Ballon solaire",
+			age: "35 - 50 ans",
+			people: "2",
 			reserve: "Entre 22500 et 35000 €",
 			duration: "D'ici 3 mois",
 			name: "",
-			genre: "",
+			genre: "Monsieur",
 			phone: "",
 			email: "",
+		},
+		formSubmitted: {
+			status: "idle",
+			error: null,
 		},
 	},
 	reducers: {
@@ -28,7 +35,9 @@ const stepsSlice = createSlice({
 			state.formValues[payload.inputName] = payload.value;
 		},
 		nextInput: (state) => {
-			state.activeInput += 1;
+			if (state.activeInput < 15) {
+				state.activeInput += 1;
+			}
 		},
 	},
 });
