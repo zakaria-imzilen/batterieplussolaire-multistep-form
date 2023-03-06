@@ -17,7 +17,6 @@ const Navbar = () => {
 					<img src={logo} height={90} alt="Logo de Batterie Plus Solaire" />
 				</div>
 				<div className="ctas text-end">
-					<span className="d-none d-md-inline me-5">Call Now</span>
 					<Button
 						size="small"
 						startIcon={<CallIcon />}

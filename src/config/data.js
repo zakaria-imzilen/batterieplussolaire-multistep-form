@@ -34,7 +34,7 @@ const stepsData = [
 	},
 	{
 		inputName: "research",
-		question: "Ou en êtes vous dans vos recherche d'installation solaire",
+		question: "Ou en êtes vous dans vos recherches d'installation solaire",
 		inputType: "select",
 		selectValues: [
 			"J'ai déjà reçu un devis",

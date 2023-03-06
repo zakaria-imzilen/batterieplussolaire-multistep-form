@@ -131,8 +131,10 @@ const Step = ({}) => {
 
 			{inputName === "phone" || inputName === "email" ? (
 				<Alert severity="info" className="mb-3">
-					{formData.genre} {formData.name} d'après vos informations vous pouvez
-					réaliser minimum 50% d'économie sur votre facture d'électricité.
+					<h5>
+						{formData.genre} {formData.name} d'après vos informations vous
+						pouvez réaliser de belles économies sur votre facture d'électricité.
+					</h5>
 				</Alert>
 			) : (
 				""
@@ -144,12 +146,13 @@ const Step = ({}) => {
 						{selectValues.map((opt) => (
 							<motion.span
 								exit={{ opacity: 0 }}
-								// whileTap={{ scale: 0.9 }}
 								onClick={() => dispatch(changeInput({ inputName, value: opt }))}
 								key={selectValues.indexOf(opt)}
 								className={`selectOption py-2 px-4 d-block ${
-									inputState === opt && "active"
-								}`}
+									typeof inputState === "object" &&
+									inputState.includes(opt) &&
+									"active"
+								} ${inputState === opt && "active"}`}
 								value={opt}
 							>
 								<span className="letter">

@@ -13,8 +13,9 @@ const stepsSlice = createSlice({
 			type: "Maison",
 			research: "Je commence mes recherches",
 			goal: "Réduire ma facture d'électricité de 50% à 70%",
-			chauffage:
+			chauffage: [
 				"Pompe à chaleur Air/Eau (Chauffage au sol, radiateur haute et moyenne température)",
+			],
 			production: "Ballon solaire",
 			age: "35 - 50 ans",
 			people: "2",
@@ -32,7 +33,11 @@ const stepsSlice = createSlice({
 	},
 	reducers: {
 		changeInput: (state, { payload }) => {
-			state.formValues[payload.inputName] = payload.value;
+			if (payload.inputName === "chauffage") {
+				state.formValues[payload.inputName].push(payload.value);
+			} else {
+				state.formValues[payload.inputName] = payload.value;
+			}
 		},
 		nextInput: (state) => {
 			if (state.activeInput < 15) {

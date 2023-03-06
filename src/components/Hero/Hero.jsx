@@ -18,8 +18,9 @@ const Hero = () => {
 					startIcon={<CallIcon />}
 					variant="outlined"
 					color="warning"
+					href="tel:0490664112"
 				>
-					Nous appeler 04 00 00 00 00
+					Nous appeler 04 90 66 41 12
 				</Button>
 			</div>
 		</header>
