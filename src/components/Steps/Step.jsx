@@ -71,7 +71,7 @@ const Step = ({}) => {
 						/^(?:(?:(?:\+|00)33[ ]?(?:\(0\)[ ]?)?)|0){1}[1-9]{1}([ .-]?)(?:\d{2}\1?){3}\d{2}$/g;
 					if (!regexNum.test(inputVal)) {
 						toast.warning(
-							"Le numéro de téléphone non valide (format: 04 90 66 41 12)"
+							"Le numéro de téléphone non valide (format: 04 00 00 00 00)"
 						);
 					} else {
 						dispatch(nextInput());
@@ -83,16 +83,14 @@ const Step = ({}) => {
 				case "email":
 					const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 					if (!regexEmail.test(inputVal)) {
-						toast.warning(
-							"L'Email est non valide (format: contact@solairebatterie.fr)"
-						);
+						toast.warning("L'Email est non valide (format: example@mail.com)");
 					} else {
 						dispatch(nextInput());
 						dispatch(changeInput({ inputName, value: inputVal }));
 						setInputVal("");
 
 						// Now send the data to EMAIL
-						dispatch(submitForm());
+						dispatch(submitForm(formData));
 						console.log("Send it to the mail");
 					}
 					break;
@@ -112,11 +110,11 @@ const Step = ({}) => {
 	}, [inputState]);
 
 	useEffect(() => {
-		if (validForm === true) {
+		if (validForm === "fulfilled") {
 			toast.success(
 				"Nous avons reçu votre demande, notre équipe vous contactera dès que possible."
 			);
-		} else if (validForm === false) {
+		} else if (validForm === "failed") {
 			toast.error(
 				"Une erreur s'est produite, veuillez réessayer de soumettre le formulaire."
 			);
