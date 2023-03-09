@@ -37,7 +37,7 @@ export const submitForm = createAsyncThunk(
 			name,
 			genre,
 			phone,
-			email,
+			email: email,
 		});
 
 		return result.status;
@@ -47,7 +47,7 @@ export const submitForm = createAsyncThunk(
 const stepsSlice = createSlice({
 	name: "steps",
 	initialState: {
-		activeInput: 0,
+		activeInput: 15,
 		formValues: {
 			address: "",
 			bill: "500 à 1000 €",
@@ -75,8 +75,21 @@ const stepsSlice = createSlice({
 	},
 	reducers: {
 		changeInput: (state, { payload }) => {
+			// Chauffage input permit too many select values
 			if (payload.inputName === "chauffage") {
-				state.formValues[payload.inputName].push(payload.value);
+				// Check if the selected value already exist
+				if (state.formValues[payload.inputName].includes(payload.value)) {
+					// Check if the array is empty
+					if (state.formValues[payload.inputName].length > 1) {
+						const filtred = state.formValues[payload.inputName].filter(
+							(val) => val !== payload.value
+						);
+						state.formValues[payload.inputName] = filtred;
+					}
+					// Else, cannot remove the selected value
+				} else {
+					state.formValues[payload.inputName].push(payload.value);
+				}
 			} else {
 				state.formValues[payload.inputName] = payload.value;
 			}

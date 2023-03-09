@@ -43,7 +43,7 @@ const Step = ({}) => {
 	const [inputVal, setInputVal] = useState("");
 
 	// Handle Ok button
-	const handleOk = () => {
+	const handleOk = async () => {
 		if (inputType === "text") {
 			switch (inputName) {
 				case "address":
@@ -86,12 +86,12 @@ const Step = ({}) => {
 						toast.warning("L'Email est non valide (format: example@mail.com)");
 					} else {
 						dispatch(nextInput());
-						dispatch(changeInput({ inputName, value: inputVal }));
-						setInputVal("");
+						await dispatch(changeInput({ inputName, value: inputVal }));
 
 						// Now send the data to EMAIL
-						dispatch(submitForm(formData));
+						await dispatch(submitForm({...formData, email: inputVal}));
 						console.log("Send it to the mail");
+						setInputVal("");
 					}
 					break;
 
@@ -144,7 +144,16 @@ const Step = ({}) => {
 						{selectValues.map((opt) => (
 							<motion.span
 								exit={{ opacity: 0 }}
-								onClick={() => dispatch(changeInput({ inputName, value: opt }))}
+								onClick={() => {
+									// Any input besides chauffage, do not dispatch changeInput if the input is already active
+									if(inputName !== "chauffage") {
+										if(inputState !== opt) {
+											dispatch(changeInput({ inputName, value: opt }))
+										}
+									} else {
+										dispatch(changeInput({ inputName, value: opt }))
+									}
+								}}
 								key={selectValues.indexOf(opt)}
 								className={`selectOption py-2 px-4 d-block ${
 									typeof inputState === "object" &&
