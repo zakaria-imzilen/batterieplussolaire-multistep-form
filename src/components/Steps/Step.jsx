@@ -89,7 +89,7 @@ const Step = ({}) => {
 						await dispatch(changeInput({ inputName, value: inputVal }));
 
 						// Now send the data to EMAIL
-						await dispatch(submitForm({...formData, email: inputVal}));
+						await dispatch(submitForm({ ...formData, email: inputVal }));
 						console.log("Send it to the mail");
 						setInputVal("");
 					}
@@ -114,6 +114,14 @@ const Step = ({}) => {
 			toast.success(
 				"Nous avons reçu votre demande, notre équipe vous contactera dès que possible."
 			);
+			toast.success("Vous serez redirigé vers la page d'accueil");
+			const redirecting = setTimeout(() => {
+				window.location.href = "https://solairebatterie.fr/";
+			}, 1000);
+
+			return () => {
+				clearTimeout(redirecting);
+			};
 		} else if (validForm === "failed") {
 			toast.error(
 				"Une erreur s'est produite, veuillez réessayer de soumettre le formulaire."
@@ -146,12 +154,12 @@ const Step = ({}) => {
 								exit={{ opacity: 0 }}
 								onClick={() => {
 									// Any input besides chauffage, do not dispatch changeInput if the input is already active
-									if(inputName !== "chauffage") {
-										if(inputState !== opt) {
-											dispatch(changeInput({ inputName, value: opt }))
+									if (inputName !== "chauffage") {
+										if (inputState !== opt) {
+											dispatch(changeInput({ inputName, value: opt }));
 										}
 									} else {
-										dispatch(changeInput({ inputName, value: opt }))
+										dispatch(changeInput({ inputName, value: opt }));
 									}
 								}}
 								key={selectValues.indexOf(opt)}
