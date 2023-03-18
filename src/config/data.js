@@ -97,7 +97,7 @@ const stepsData = [
 	},
 	{
 		inputName: "reserve",
-		question: "Reserve fiscal",
+		question: "Revenu fiscal",
 		inputType: "select",
 		selectValues: [
 			"Inférieur à 22500 €",
@@ -108,7 +108,7 @@ const stepsData = [
 	},
 	{
 		inputName: "duration",
-		question: "Quel délai de votre projet",
+		question: "Quel délai pour votre projet ?",
 		inputType: "select",
 		selectValues: ["D'ici 3 mois", "3 à 6 mois", "Plus de 6 mois"],
 	},

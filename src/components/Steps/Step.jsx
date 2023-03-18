@@ -116,7 +116,7 @@ const Step = ({}) => {
 			);
 			toast.success("Vous serez redirigé vers la page d'accueil");
 			const redirecting = setTimeout(() => {
-				window.location.href = "https://solairebatterie.fr/";
+				window.location.href = "https://batterieplussolaire.fr/";
 			}, 1000);
 
 			return () => {
@@ -130,21 +130,22 @@ const Step = ({}) => {
 	}, [validForm]);
 
 	return (
-		<div className="py-5 ps-md-5 position-relative" id="steps-show">
-			<h5 className="question mb-4">
-				<span className="fs-6">{activeStep + 1}-</span> {question}
-			</h5>
-
+		<div className="ps-md-5 position-relative" id="steps-show">
 			{inputName === "phone" || inputName === "email" ? (
 				<Alert severity="info" className="mb-3">
 					<h5>
 						{formData.genre} {formData.name} d'après vos informations vous
-						pouvez réaliser de belles économies sur votre facture d'électricité.
+						pouvez réaliser jusqu'à 50% d'économies sur votre facture d'électricité.
 					</h5>
 				</Alert>
 			) : (
 				""
 			)}
+
+			<h5 className="question mb-4">
+				<span className="fs-6">{activeStep + 1}-</span> {question}
+			</h5>
+
 			{/* Select */}
 			{inputType === "select" ? (
 				<div className="ps-5 row row-cols-1 flex-wrap gap-1">
@@ -171,8 +172,9 @@ const Step = ({}) => {
 								value={opt}
 							>
 								<span className="letter">
-									{returnLetter(selectValues.indexOf(opt))}-{" "}
-								</span>{" "}
+									{/* Run A-B-C letters before options BUT on the question 10 */}
+									{inputName !== "people" && `${returnLetter(selectValues.indexOf(opt))}-`} {" "}
+								</span>
 								{opt}
 							</motion.span>
 						))}

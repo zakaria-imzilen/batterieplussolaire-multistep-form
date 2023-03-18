@@ -1,0 +1,9 @@
+footer {
+	background-color: #000121;
+}
+
+footer .credits {
+	padding-top: 5px;
+	font-size: 13px;
+	color: #fff;
+}

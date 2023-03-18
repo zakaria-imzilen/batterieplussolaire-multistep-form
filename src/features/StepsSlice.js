@@ -47,7 +47,7 @@ export const submitForm = createAsyncThunk(
 const stepsSlice = createSlice({
 	name: "steps",
 	initialState: {
-		activeInput: 0,
+		activeInput: 9,
 		formValues: {
 			address: "",
 			bill: "500 à 1000 €",

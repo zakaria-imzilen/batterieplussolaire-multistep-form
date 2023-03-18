@@ -1,5 +1,7 @@
 #steps-show {
 	cursor: pointer;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
 }
 
 .selectOption {
